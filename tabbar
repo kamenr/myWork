@@ -1,0 +1,30 @@
+class MainTabBarController: UITabBarController {
+   // @IBOutlet weak var mainTabbar: UITabBar!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        let searchViewController = SearchController()
+//        searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+    
+    }
+    
+    func configureTabBar(tabBarController:UITabBarController) {
+      
+        tabBarController.tabBar.backgroundImage = coloredImage(size: UIScreen.main.bounds.size, restrictedToRect: CGRect(x: 0, y: 0, width: (tabBarController.tabBar.frame.size.width),height: (tabBarController.tabBar.frame.size.height)), color: UIColor.clear)
+        tabBarController.tabBar.shadowImage = UIImage()
+    }
+    
+    func coloredImage(size:CGSize,restrictedToRect:CGRect,color:UIColor) -> UIImage{
+        
+        let colorView = UIView(frame: CGRect(origin:CGPoint(x: 0, y: 0) , size: size))
+        colorView.backgroundColor = color
+        colorView.contentScaleFactor = UIScreen.main.scale
+        
+        UIGraphicsBeginImageContextWithOptions(restrictedToRect.size, false, UIScreen.main.scale)
+        colorView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+
+}
